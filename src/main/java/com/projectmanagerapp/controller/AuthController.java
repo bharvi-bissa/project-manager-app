@@ -32,8 +32,8 @@ import com.projectmanagerapp.security.jwt.JwtProvider;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/user")
-public class UserController {
+@RequestMapping("/api/auth")
+public class AuthController {
 
 	@Autowired
 	AuthenticationManager authenticationManager;
