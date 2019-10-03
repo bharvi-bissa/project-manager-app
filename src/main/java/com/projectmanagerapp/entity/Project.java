@@ -22,19 +22,20 @@ public class Project {
 	private String description;
 	private Date startDate;
 	private Date endDate;
-	
-	@Column(insertable = false, updatable = false)
+
 	@CreationTimestamp
+	@Column(name = "created_at", updatable = false)
 	private Date createdAt;
-	
-	@UpdateTimestamp 
+
+	@UpdateTimestamp
+	@Column(name = "updated_at")
 	private Date updatedAt;
 
 	public Project() {
 	}
 
 	public Project(Long projectId, String projectName, String projectIdentifier, String description, Date startDate,
-			Date endDate, Date createdAt, Date updatedAt) {
+			Date endDate) {
 		super();
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -42,8 +43,6 @@ public class Project {
 		this.description = description;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 	}
 
 	public Long getProjectId() {
@@ -108,6 +107,13 @@ public class Project {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	@Override
+	public String toString() {
+		return "Project [projectId=" + projectId + ", projectName=" + projectName + ", projectIdentifier="
+				+ projectIdentifier + ", description=" + description + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 
 }

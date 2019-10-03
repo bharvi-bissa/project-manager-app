@@ -30,6 +30,8 @@ import com.projectmanagerapp.request.SignUpForm;
 import com.projectmanagerapp.response.JwtResponse;
 import com.projectmanagerapp.security.jwt.JwtProvider;
 
+import io.swagger.annotations.ApiOperation;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -51,6 +53,8 @@ public class AuthController {
 	JwtProvider jwtProvider;
 
 	@PostMapping("/signin")
+	@CrossOrigin(origins = "*")
+	@ApiOperation("Login user and if successfull return access token")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
 		Authentication authentication = authenticationManager.authenticate(
@@ -62,19 +66,22 @@ public class AuthController {
 		return ResponseEntity.ok(new JwtResponse(jwt));
 	}
 
+	@CrossOrigin(origins = "*")
 	@GetMapping("/test")
 	public String test() {
 		return "API is online.";
 	}
 
+	@CrossOrigin(origins = "*")
+	@ApiOperation("Register user and return user object")
 	@PostMapping("/signup")
 	public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return new ResponseEntity<String>("Fail -> Username is already taken!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Fail -> Username is already taken!", HttpStatus.BAD_REQUEST);
 		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return new ResponseEntity<String>("Fail -> Email is already in use!", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("Fail -> Email is already in use!", HttpStatus.BAD_REQUEST);
 		}
 
 		// Creating user's account
