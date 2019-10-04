@@ -7,28 +7,49 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
+@Table(name = "project")
 public class Project {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long projectId;
+
+	@NotBlank(message = "Project Name is required")
 	private String projectName;
+
+	@NotBlank(message = "Project Identifier is required")
+	@Column(updatable = false, unique = true)
 	private String projectIdentifier;
+
+	@NotBlank(message = "Project Description is required")
 	private String description;
+
+	@NotNull(message = "Start date is required")
+	@JsonFormat(pattern = "yy-mm-dd")
 	private Date startDate;
+
+	@NotNull(message = "Start date is required")
+	@JsonFormat(pattern = "yy-mm-dd")
 	private Date endDate;
 
 	@CreationTimestamp
 	@Column(name = "created_at", updatable = false)
+	@JsonFormat(pattern = "yy-mm-dd")
 	private Date createdAt;
 
 	@UpdateTimestamp
 	@Column(name = "updated_at")
+	@JsonFormat(pattern = "yy-mm-dd")
 	private Date updatedAt;
 
 	public Project() {
