@@ -42,22 +42,23 @@ public class ProjectController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<?> getProject(Long projectId) {
-		Project project = projService.findById(projectId);
+	public ResponseEntity<?> getProject(String projectIdentifier) {
+		Project project = projService.findByProjectIdentifier(projectIdentifier);
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
 
-	@GetMapping("/allProjects")
+	@GetMapping("/all")
 	public ResponseEntity<?> getAllProjects() {
 		List<Project> projectList = projService.getAllProjects();
 		return new ResponseEntity<>(projectList, HttpStatus.OK);
 	}
 
 	@DeleteMapping("")
-	public ResponseEntity<?> deleteProject(Long projectId) {
-		if (projService.deleteProjectById(projectId)) {
-			return new ResponseEntity<>("Project Deleted Successfully", HttpStatus.OK);
+	public ResponseEntity<?> deleteProject(String projectIdentifier) {
+		if (projService.deleteProjectByProjectIdentifier(projectIdentifier)) {
+			return new ResponseEntity<>("Project with idenentifier '" + projectIdentifier + "' deleted Successfully",
+					HttpStatus.OK);
 		}
-		return new ResponseEntity<>("Someething went wrong", HttpStatus.OK);
+		return new ResponseEntity<>("Something went wrong", HttpStatus.OK);
 	}
 }

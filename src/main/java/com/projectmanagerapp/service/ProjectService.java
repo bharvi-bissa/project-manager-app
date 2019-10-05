@@ -7,9 +7,9 @@ import com.projectmanagerapp.entity.Project;
 public interface ProjectService {
 	Project createOrUpdateProject(Project project);
 
-	Project findById(Long projectId);
+	Project findByProjectIdentifier(String projectIdentifier);
 
-	Boolean deleteProjectById(Long projectId);
+	Boolean deleteProjectByProjectIdentifier(String projectIdentifier);
 
 	List<Project> getAllProjects();
 }

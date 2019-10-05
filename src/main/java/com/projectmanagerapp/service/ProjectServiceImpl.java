@@ -33,15 +33,15 @@ public class ProjectServiceImpl implements ProjectService {
 	}
 
 	@Override
-	public Project findById(Long projectId) {
-		Optional<Project> project = projectRepository.findById(projectId);
+	public Project findByProjectIdentifier(String projectIdentifier) {
+		Optional<Project> project = projectRepository.findByProjectIdentifier(projectIdentifier);
 		return project.isPresent() ? project.get() : null;
 	}
 
 	@Override
-	public Boolean deleteProjectById(Long projectId) {
-		if (findById(projectId) != null) {
-			projectRepository.deleteById(projectId);
+	public Boolean deleteProjectByProjectIdentifier(String projectIdentifier) {
+		if (findByProjectIdentifier(projectIdentifier) != null) {
+			projectRepository.deleteByProjectIdentifier(projectIdentifier);
 			return true;
 		}
 		return false;
