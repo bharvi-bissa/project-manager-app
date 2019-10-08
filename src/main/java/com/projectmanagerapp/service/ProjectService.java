@@ -1,10 +1,15 @@
 package com.projectmanagerapp.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import com.projectmanagerapp.entity.Project;
 
-@Service
 public interface ProjectService {
-	Project createProject(Project project);
+	Project createOrUpdateProject(Project project);
+
+	Project findByProjectIdentifier(String projectIdentifier);
+
+	Boolean deleteProjectByProjectIdentifier(String projectIdentifier);
+
+	List<Project> getAllProjects();
 }

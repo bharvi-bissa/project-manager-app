@@ -2,33 +2,72 @@ package com.projectmanagerapp.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
+@Table(name = "project")
 public class Project {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long projectId;
+
+	@NotBlank(message = "Project Name is required")
 	private String projectName;
+
+	@NotBlank(message = "Project Identifier is required")
+	@Column(updatable = false, unique = true)
 	private String projectIdentifier;
+
+	@NotBlank(message = "Project Description is required")
 	private String description;
+
+	@NotNull(message = "Start date is required")
+	@JsonFormat(pattern = "yy-mm-dd")
 	private Date startDate;
+
+	@NotNull(message = "Start date is required")
+	@JsonFormat(pattern = "yy-mm-dd")
 	private Date endDate;
 
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project") // if project is deleted its
+																						// backlog is also
+																						// deleted,Project owns Backlog
+	private Backlog backlog;// one project can have only one backlog
+
+	@CreationTimestamp
+	@Column(name = "created_at", updatable = false)
+	@JsonFormat(pattern = "yy-mm-dd")
 	private Date createdAt;
+
+	@UpdateTimestamp
+	@Column(name = "updated_at")
+	@JsonFormat(pattern = "yy-mm-dd")
 	private Date updatedAt;
 
 	public Project() {
 	}
 
-	public Project(Long projectId, String projectName, String projectIdentifier, String description, Date startDate,
-			Date endDate, Date createdAt, Date updatedAt) {
+	public Project(Long projectId, @NotBlank(message = "Project Name is required") String projectName,
+			@NotBlank(message = "Project Identifier is required") String projectIdentifier,
+			@NotBlank(message = "Project Description is required") String description,
+			@NotNull(message = "Start date is required") Date startDate,
+			@NotNull(message = "Start date is required") Date endDate, Backlog backlog) {
 		super();
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -36,8 +75,7 @@ public class Project {
 		this.description = description;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+		this.backlog = backlog;
 	}
 
 	public Long getProjectId() {
@@ -104,14 +142,19 @@ public class Project {
 		this.updatedAt = updatedAt;
 	}
 
-	@PrePersist
-	protected void onCreate() {
-		this.createdAt = new Date();
+	public Backlog getBacklog() {
+		return backlog;
 	}
 
-	@PreUpdate
-	protected void onUpdate() {
-		this.updatedAt = new Date();
+	public void setBacklog(Backlog backlog) {
+		this.backlog = backlog;
+	}
+
+	@Override
+	public String toString() {
+		return "Project [projectId=" + projectId + ", projectName=" + projectName + ", projectIdentifier="
+				+ projectIdentifier + ", description=" + description + ", startDate=" + startDate + ", endDate="
+				+ endDate + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 
 }
