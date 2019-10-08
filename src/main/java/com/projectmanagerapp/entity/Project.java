@@ -2,11 +2,14 @@ package com.projectmanagerapp.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -42,6 +45,11 @@ public class Project {
 	@JsonFormat(pattern = "yy-mm-dd")
 	private Date endDate;
 
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project") // if project is deleted its
+																						// backlog is also
+																						// deleted,Project owns Backlog
+	private Backlog backlog;// one project can have only one backlog
+
 	@CreationTimestamp
 	@Column(name = "created_at", updatable = false)
 	@JsonFormat(pattern = "yy-mm-dd")
@@ -55,8 +63,11 @@ public class Project {
 	public Project() {
 	}
 
-	public Project(Long projectId, String projectName, String projectIdentifier, String description, Date startDate,
-			Date endDate) {
+	public Project(Long projectId, @NotBlank(message = "Project Name is required") String projectName,
+			@NotBlank(message = "Project Identifier is required") String projectIdentifier,
+			@NotBlank(message = "Project Description is required") String description,
+			@NotNull(message = "Start date is required") Date startDate,
+			@NotNull(message = "Start date is required") Date endDate, Backlog backlog) {
 		super();
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -64,6 +75,7 @@ public class Project {
 		this.description = description;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.backlog = backlog;
 	}
 
 	public Long getProjectId() {
@@ -128,6 +140,14 @@ public class Project {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public Backlog getBacklog() {
+		return backlog;
+	}
+
+	public void setBacklog(Backlog backlog) {
+		this.backlog = backlog;
 	}
 
 	@Override
