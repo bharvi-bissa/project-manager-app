@@ -661,3 +661,11 @@ Consider defining a bean of type 'com.projectmanagerapp.service.ProjectTaskServi
 2019-10-08 18:02:11,501 DEBUG org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor [http-nio-8081-exec-5] Using 'application/json', given [*/*] and supported [application/json, application/*+json, application/json, application/*+json]
 2019-10-08 18:02:11,501 DEBUG org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor [http-nio-8081-exec-5] Writing [[Project [projectId=1, projectName=string, projectIdentifier=STRING, description=string, startDate=2 (truncated)...]
 2019-10-08 18:02:11,506 DEBUG org.springframework.web.servlet.DispatcherServlet [http-nio-8081-exec-5] Completed 200 OK
+2019-10-08 18:02:54,194 DEBUG org.springframework.web.context.ContextLoader [restartedMain] Published root WebApplicationContext as ServletContext attribute with name [org.springframework.web.context.WebApplicationContext.ROOT]
+2019-10-08 18:02:54,194 INFO org.springframework.web.context.ContextLoader [restartedMain] Root WebApplicationContext: initialization completed in 527 ms
+2019-10-08 18:02:54,524 DEBUG org.springframework.web.filter.CorsFilter [restartedMain] Filter 'corsFilter' configured for use
+2019-10-08 18:02:54,689 DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping [restartedMain] 17 mappings in 'requestMappingHandlerMapping'
+2019-10-08 18:02:54,797 DEBUG org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [restartedMain] Patterns [/**/favicon.ico] in 'faviconHandlerMapping'
+2019-10-08 18:02:54,862 DEBUG org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter [restartedMain] ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2019-10-08 18:02:54,877 DEBUG org.springframework.web.servlet.handler.SimpleUrlHandlerMapping [restartedMain] Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2019-10-08 18:02:54,882 DEBUG org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver [restartedMain] ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
