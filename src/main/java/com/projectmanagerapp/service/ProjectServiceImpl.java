@@ -31,14 +31,16 @@ public class ProjectServiceImpl implements ProjectService {
 		final String projectIdentifierUpdateString = project.getProjectIdentifier().toUpperCase();
 		try {
 			project.setProjectIdentifier(projectIdentifierUpdateString);
-
+			LOG.info("PROJECT ::"+project);
+			// if no project id is passed, create new project and create a backlog
 			if (project.getProjectId() == null || project.getProjectId() == 0) {
 				Backlog backlog = new Backlog();
 				project.setBacklog(backlog);
 				backlog.setProject(project);// for bidirectional oneToOne
 				backlog.setProjectIdentifier(projectIdentifierUpdateString);
 			}
-
+			// if projectId is passed (that mean we have to update the project), and no
+			// backlog is passed, set the backlog by finding backlog by projectIdentifier
 			if (project.getProjectId() != null) {
 				project.setBacklog(backlogRepository.findByProjectIdentifier(projectIdentifierUpdateString));
 			}
@@ -46,7 +48,7 @@ public class ProjectServiceImpl implements ProjectService {
 			return projectRepository.save(project);
 		} catch (Exception e) {
 			System.out.println("Exception :: " + e);
-			throw new ProjectIdentifierException("Project Id " + projectIdentifierUpdateString + " already exists");
+			throw new ProjectIdentifierException("Project Identifier " + projectIdentifierUpdateString + " already exists");
 		}
 	}
 
