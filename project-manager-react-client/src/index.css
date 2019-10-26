@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+/* utility classes starts */
+.btn-green {
+  background-color: #1f6955;
+  color: #fff;
+  border-color: #1f6955;
+  border-radius: 0px;
+}
+/* utility classes ends */
+.navbar {
+  background-color: #611f69;
+  color: #fff;
+  fill: #fff;
+}
