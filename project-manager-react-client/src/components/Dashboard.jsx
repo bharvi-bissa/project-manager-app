@@ -5,12 +5,12 @@ export class Dashboard extends Component {
   render() {
     return (
       <div>
-        <div className="container mt-4">
+        <div className="container">
           <div className="row">
-            <div className="col-md-12">
-              <h1 class="display-4 text-center">Projects</h1>
+            <div className="col m12">
+              <h1 class="center-align">Projects</h1>
               <br />
-              <a href="ProjectForm.html" class="btn btn-lg btn-green">
+              <a href="ProjectForm.html" class="waves-effect waves-light btn">
                 Create a Project
               </a>
               <br />

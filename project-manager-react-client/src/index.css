@@ -11,7 +11,7 @@ body {
   border-radius: 0px;
 }
 /* utility classes ends */
-.navbar {
+nav {
   background-color: #611f69;
   color: #fff;
   fill: #fff;
