@@ -3,47 +3,44 @@ import React, { Component } from "react";
 class Header extends Component {
   render() {
     return (
-      <fragment>
-        <nav>
-          <div className="nav-wrapper">
-            <a href="#!" className="brand-logo">
-              Logo
-            </a>
-            <a href="#" data-target="mobile-demo" className="sidenav-trigger">
-              <i className="material-icons">dehaze</i>
-            </a>
-            <ul className="right hide-on-med-and-down">
-              <li>
-                <a href="sass.html">Sass</a>
+      <nav className="navbar navbar-expand-sm mb-4">
+        <div className="container">
+          <a className="navbar-brand" href="Dashboard.html">
+            Personal Project Management Tool
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#mobile-nav"
+          >
+            <span className="navbar-toggler-icon" />
+          </button>
+
+          <div className="collapse navbar-collapse" id="mobile-nav">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="/dashboard">
+                  Dashboard
+                </a>
               </li>
-              <li>
-                <a href="badges.html">Components</a>
+            </ul>
+
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <a className="nav-link " href="register.html">
+                  Sign Up
+                </a>
               </li>
-              <li>
-                <a href="collapsible.html">Javascript</a>
-              </li>
-              <li>
-                <a href="mobile.html">Mobile</a>
+              <li className="nav-item">
+                <a className="nav-link" href="login.html">
+                  Login
+                </a>
               </li>
             </ul>
           </div>
-        </nav>
-        <ul className="sidenav" id="mobile-demo">
-          <li>
-            <a href="sass.html">Sass</a>
-          </li>
-          <li>
-            <a href="badges.html">Components</a>
-          </li>
-          <li>
-            <a href="collapsible.html">Javascript</a>
-          </li>
-          <li>
-            <a href="mobile.html">Mobile</a>
-          </li>
-        </ul>
-      </fragment>
-      //navbar ends
+        </div>
+      </nav>
     );
   }
 }
