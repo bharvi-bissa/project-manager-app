@@ -50,17 +50,6 @@ class AddProject extends Component {
     const { errors } = this.state;
     return (
       <div>
-        {
-          //check name attribute input fields
-          //create constructor
-          //set state
-          //set value on input fields
-          //create onChange function
-          //set onChange on each input field
-          //bind on constructor
-          //check state change in the react extension
-        }
-
         <div className="project">
           <div className="container">
             <div className="row">
@@ -172,7 +161,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(
-  mapStateToProps,
-  { createProject }
-)(AddProject);
+export default connect(mapStateToProps, { createProject })(AddProject);
