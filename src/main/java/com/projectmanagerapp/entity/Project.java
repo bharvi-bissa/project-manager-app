@@ -41,11 +41,11 @@ public class Project {
 	private String description;
 
 	@NotNull(message = "Start date is required")
-	@JsonFormat(pattern = "yy-mm-dd")
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date startDate;
 
 	@NotNull(message = "Start date is required")
-	@JsonFormat(pattern = "yy-mm-dd")
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date endDate;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project") // if project is deleted its
@@ -55,12 +55,12 @@ public class Project {
 
 	@CreationTimestamp
 	@Column(name = "created_at", updatable = false)
-	@JsonFormat(pattern = "yy-mm-dd")
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date createdAt;
 
 	@UpdateTimestamp
 	@Column(name = "updated_at")
-	@JsonFormat(pattern = "yy-mm-dd")
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date updatedAt;
 
 	public Project() {

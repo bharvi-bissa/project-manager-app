@@ -19,16 +19,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projectmanagerapp.entity.Project;
+import com.projectmanagerapp.exception.ProjectNotFoundException;
 import com.projectmanagerapp.service.ProjectServiceImpl;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/api/project")
 public class ProjectController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ProjectController.class);
 
 	@Autowired
@@ -36,7 +38,7 @@ public class ProjectController {
 
 	@PostMapping("")
 	public ResponseEntity<?> createOrUpdateProject(@Valid @RequestBody Project project, BindingResult bindingResult) {
-		LOG.info("PROJECT ::"+project);
+		LOG.info("PROJECT ::" + project);
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errMap = new HashMap<>();
 			for (FieldError err : bindingResult.getFieldErrors()) {
@@ -49,8 +51,11 @@ public class ProjectController {
 	}
 
 	@GetMapping("")
-	public ResponseEntity<?> getProject(String projectIdentifier) {
+	public ResponseEntity<?> getProject(@RequestParam String projectIdentifier) {
 		Project project = projService.findByProjectIdentifier(projectIdentifier);
+		if (project == null)
+			throw new ProjectNotFoundException("Project Not found with identifier " + projectIdentifier);
+		
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
 
