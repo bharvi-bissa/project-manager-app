@@ -1,0 +1,31 @@
+* {
+  font-family: "Montserrat", sans-serif !important;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+/* utility classes starts */
+.btn-green {
+  background-color: #1f6955;
+  color: #fff;
+  border-color: #1f6955;
+  border-radius: 0px;
+}
+a.btn:hover {
+  color: #fff;
+}
+/* utility classes ends */
+nav {
+  background-color: #611f69;
+  color: #fff;
+  fill: #fff;
+}
+
+nav a {
+  color: #fff;
+}
+
+nav a:hover {
+  color: #fff;
+}

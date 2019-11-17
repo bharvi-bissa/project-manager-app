@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -18,6 +19,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "project")
@@ -28,6 +30,7 @@ public class Project {
 	private Long projectId;
 
 	@NotBlank(message = "Project Name is required")
+	@Lob
 	private String projectName;
 
 	@NotBlank(message = "Project Identifier is required")
@@ -38,26 +41,26 @@ public class Project {
 	private String description;
 
 	@NotNull(message = "Start date is required")
-	@JsonFormat(pattern = "yy-mm-dd")
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date startDate;
 
 	@NotNull(message = "Start date is required")
-	@JsonFormat(pattern = "yy-mm-dd")
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date endDate;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project") // if project is deleted its
 																						// backlog is also
-																						// deleted,Project owns Backlog
+	@JsonIgnore																					// deleted,Project owns Backlog
 	private Backlog backlog;// one project can have only one backlog
 
 	@CreationTimestamp
 	@Column(name = "created_at", updatable = false)
-	@JsonFormat(pattern = "yy-mm-dd")
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date createdAt;
 
 	@UpdateTimestamp
 	@Column(name = "updated_at")
-	@JsonFormat(pattern = "yy-mm-dd")
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date updatedAt;
 
 	public Project() {

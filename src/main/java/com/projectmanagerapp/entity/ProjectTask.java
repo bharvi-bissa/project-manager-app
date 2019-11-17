@@ -25,7 +25,7 @@ public class ProjectTask {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(updatable = false)
+	@Column(updatable = false, unique = true)
 	private String projectSequence;
 	@NotBlank(message = "Summary is required")
 	private String summary;
@@ -37,7 +37,7 @@ public class ProjectTask {
 	@Column(updatable = false)
 	private String projectIdentifier;
 
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "backlog_id", updatable = false, nullable = false)
 	@JsonIgnore
 	private Backlog backlog;
@@ -152,6 +152,14 @@ public class ProjectTask {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	@Override
+	public String toString() {
+		return "ProjectTask [id=" + id + ", projectSequence=" + projectSequence + ", summary=" + summary
+				+ ", acceptanceCriteria=" + acceptanceCriteria + ", priority=" + priority + ", dueDate=" + dueDate
+				+ ", status=" + status + ", projectIdentifier=" + projectIdentifier + ", backlog=" + backlog
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
 	}
 
 }
