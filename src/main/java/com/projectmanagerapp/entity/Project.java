@@ -30,7 +30,6 @@ public class Project {
 	private Long projectId;
 
 	@NotBlank(message = "Project Name is required")
-	@Lob
 	private String projectName;
 
 	@NotBlank(message = "Project Identifier is required")
@@ -38,6 +37,7 @@ public class Project {
 	private String projectIdentifier;
 
 	@NotBlank(message = "Project Description is required")
+	@Lob
 	private String description;
 
 	@NotNull(message = "Start date is required")

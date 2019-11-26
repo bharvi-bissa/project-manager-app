@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.projectmanagerapp.constants.StatusConstants;
 import com.projectmanagerapp.entity.Backlog;
 import com.projectmanagerapp.entity.ProjectTask;
 import com.projectmanagerapp.exception.ProjectNotFoundException;
@@ -38,11 +39,11 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 			projectTask.setProjectIdentifier(projectIdentifier);
 
 			if (projectTask.getPriority() == null || projectTask.getPriority() == 0) {
-				projectTask.setPriority(0);
+				projectTask.setPriority(3);
 			}
 
-			if (projectTask.getStatus() == null || projectTask.getStatus() == 0) {
-				projectTask.setStatus(0);
+			if (projectTask.getStatus() == null || projectTask.getStatus() == "") {
+				projectTask.setStatus(StatusConstants.TO_DO);
 			}
 
 			return projectTaskRepository.save(projectTask);
