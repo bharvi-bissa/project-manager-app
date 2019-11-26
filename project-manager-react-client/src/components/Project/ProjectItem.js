@@ -20,7 +20,7 @@ class ProjectItem extends Component {
     } = this.props.project;
     return (
       <div className="container">
-        <div className="card card-body bg-light mb-3">
+        <div className="card card-body card-shadow mb-3" id="cardItem">
           <div className="row">
             <div className="col-2">
               <span className="mx-auto">{projectIdentifier}</span>
@@ -31,9 +31,9 @@ class ProjectItem extends Component {
             </div>
             <div className="col-md-4 d-none d-lg-block">
               <ul className="list-group">
-                <a href="#">
+                <Link to={`/projectBoard/${projectIdentifier}`}>
                   <li className="list-group-item board">Project Board</li>
-                </a>
+                </Link>
                 <Link to={`/updateProject/${projectIdentifier}`}>
                   <li className="list-group-item update">
                     Update Project Info

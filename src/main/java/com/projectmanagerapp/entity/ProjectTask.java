@@ -32,7 +32,7 @@ public class ProjectTask {
 	private String acceptanceCriteria;
 	private Integer priority;
 	private Date dueDate;
-	private Integer status;
+	private String status;
 
 	@Column(updatable = false)
 	private String projectIdentifier;
@@ -146,11 +146,11 @@ public class ProjectTask {
 		this.updatedAt = updatedAt;
 	}
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
