@@ -2,7 +2,6 @@ package com.projectmanagerapp.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -27,10 +27,13 @@ public class ProjectTask {
 	private Long id;
 	@Column(updatable = false, unique = true)
 	private String projectSequence;
-	@NotBlank(message = "Summary is required")
+	@NotBlank(message = "Project summary is required")
 	private String summary;
+	@NotBlank(message = "Acceptance criteria is required")
 	private String acceptanceCriteria;
+	@NotNull(message = "Priority is required")
 	private Integer priority;
+	@NotNull(message = "Due date is required")
 	private Date dueDate;
 	private String status;
 
@@ -56,7 +59,10 @@ public class ProjectTask {
 	}
 
 	public ProjectTask(Long id, String projectSequence, @NotBlank(message = "Summary is required") String summary,
-			String acceptanceCriteria, Integer priority, Date dueDate) {
+			@NotBlank(message = "Acceptance criteria is required") String acceptanceCriteria,
+			@NotNull(message = "Priority is required") Integer priority,
+			@NotNull(message = "Due Date is required") Date dueDate, String status, String projectIdentifier,
+			Backlog backlog, Date createdAt, Date updatedAt) {
 		super();
 		this.id = id;
 		this.projectSequence = projectSequence;
@@ -64,6 +70,11 @@ public class ProjectTask {
 		this.acceptanceCriteria = acceptanceCriteria;
 		this.priority = priority;
 		this.dueDate = dueDate;
+		this.status = status;
+		this.projectIdentifier = projectIdentifier;
+		this.backlog = backlog;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 
 	public Long getId() {

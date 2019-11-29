@@ -22,6 +22,13 @@ class AddProjectTask extends Component {
     //onChange = this.onChange.bind(this);
   }
 
+  //life cycle hook
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -45,6 +52,8 @@ class AddProjectTask extends Component {
 
   render() {
     const { projectIdentifier } = this.props.match.params;
+    const { errors } = this.state;
+    console.log("ERRORS ::" + errors.summary);
     return (
       <div>
         <div className="add-PBI">
@@ -65,31 +74,49 @@ class AddProjectTask extends Component {
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control form-control-lg"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.summary
+                      })}
                       name="summary"
                       placeholder="Project Task summary"
                       onChange={this.onChange}
                       value={this.state.summary}
                     />
+                    {errors.summary && (
+                      <div className="invalid-feedback">{errors.summary}</div>
+                    )}
                   </div>
+
                   <div className="form-group">
                     <textarea
-                      className="form-control form-control-lg"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.acceptanceCriteria
+                      })}
                       placeholder="Acceptance Criteria"
                       name="acceptanceCriteria"
                       onChange={this.onChange}
                       value={this.state.acceptanceCriteria}
                     ></textarea>
+                    {errors.acceptanceCriteria && (
+                      <div className="invalid-feedback">
+                        {errors.acceptanceCriteria}
+                      </div>
+                    )}
                   </div>
                   <h6>Due Date</h6>
                   <div className="form-group">
                     <input
                       type="date"
-                      className="form-control form-control-lg"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.dueDate
+                      })}
                       name="dueDate"
                       onChange={this.onChange}
                       value={this.state.dueDate}
                     />
+                    {errors.dueDate && (
+                      <div className="invalid-feedback">{errors.dueDate}</div>
+                    )}
                   </div>
                   <div className="form-group">
                     <select
