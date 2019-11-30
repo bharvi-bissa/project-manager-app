@@ -5,6 +5,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import AddProject from "./components/Project/AddProject";
 import UpdateProject from "./components/Project/UpdateProject";
 import AddProjectTask from "./components/ProjectBoard/ProjectTasks/AddProjectTask";
+import UpdateProjectTask from "./components/ProjectBoard/ProjectTasks/UpdateProjectTask";
 import ProjectBoard from "./components/ProjectBoard/ProjectBoard";
 
 import { Provider } from "react-redux";
@@ -23,6 +24,11 @@ class App extends Component {
             exact
             path="/addProjectTask/:projectIdentifier"
             component={AddProjectTask}
+          />
+          <Route
+            exact
+            path="/updateProjectTask/:projectIdentifier/:taskSequence"
+            component={UpdateProjectTask}
           />
           <Route
             exact

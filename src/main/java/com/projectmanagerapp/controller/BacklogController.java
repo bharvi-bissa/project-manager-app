@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.projectmanagerapp.entity.ProjectTask;
+import com.projectmanagerapp.exception.ProjectNotFoundException;
 import com.projectmanagerapp.service.ProjectTaskServiceImpl;
 
 @RestController
@@ -45,13 +46,16 @@ public class BacklogController {
 		}
 
 		ProjectTask projectTask1 = projectTaskService.addProjectTask(projectTask, projectIdentifier);
-
+		
 		return new ResponseEntity<>(projectTask1, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/{projectIdentifier}")
 	public ResponseEntity<?> getProjectBacklog(@PathVariable String projectIdentifier) {
 		List<ProjectTask> projectTaskList = projectTaskService.getProjectTasks(projectIdentifier);
+		if(projectTaskList.isEmpty()) {
+			throw new ProjectNotFoundException("Project Not found with identifier " + projectIdentifier);
+		}
 		return new ResponseEntity<>(projectTaskList, HttpStatus.OK);
 	}
 

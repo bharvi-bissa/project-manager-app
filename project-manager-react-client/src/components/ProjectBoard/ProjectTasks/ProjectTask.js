@@ -29,7 +29,10 @@ class ProjectTask extends Component {
           <p className="card-text text-truncate ">
             {projectTask.acceptanceCriteria}
           </p>
-          <Link to="#" className="btn btn-primary">
+          <Link
+            to={`/updateProjectTask/${projectTask.projectIdentifier}/${projectTask.projectSequence}`}
+            className="btn btn-primary"
+          >
             View / Update
           </Link>
 

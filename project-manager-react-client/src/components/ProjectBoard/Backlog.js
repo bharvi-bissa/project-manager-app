@@ -24,6 +24,7 @@ class Backlog extends Component {
         return projectTask.status === "DONE";
       })
       .map(pTask => <ProjectTask key={pTask.id} projectTask={pTask} />);
+
     return (
       <div className="container">
         <div className="row">
