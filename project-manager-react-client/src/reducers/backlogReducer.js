@@ -18,6 +18,7 @@ export default (state = initialState, action) => {
         projectTasks: action.payload
       };
     case GET_PROJECT_TASK:
+      console.log("REDUCER GET_PROJECT_TASK");
       return {
         ...state,
         projectTask: action.payload

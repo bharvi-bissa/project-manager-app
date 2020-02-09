@@ -2,27 +2,61 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import classnames from "classnames";
+import {
+  getProjectTask,
+  addProjectTask
+} from "../../../actions/backlogActions";
 
 class UpdateProjectTask extends Component {
   constructor(props) {
     super(props);
-    const { projectIdentifier } = this.props.match.params;
+
     this.state = {
+      id: "",
       errors: {},
       summary: "",
       acceptanceCriteria: "",
       dueDate: "",
-      priority: 0,
-      status: "",
-      projectIdentifier: projectIdentifier
+      priority: "",
+      status: ""
+      //projectIdentifier: projectIdentifier,
+      //projectSequence: taskSequence
     };
   }
 
   //life cycle hook
+
+  componentDidMount() {
+    console.log("componentDidMount called");
+    const { projectIdentifier } = this.props.match.params;
+    const { taskSequence } = this.props.match.params;
+    this.props.getProjectTask(projectIdentifier, taskSequence);
+  }
+
   componentWillReceiveProps(nextProps) {
+    console.log("componentWillReceiveProps called");
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
+
+    const {
+      projectIdentifier,
+      summary,
+      acceptanceCriteria,
+      dueDate,
+      priority,
+      status
+    } = nextProps.projectTask;
+
+    this.setState({
+      projectIdentifier,
+      summary,
+      acceptanceCriteria,
+      dueDate,
+      priority,
+      status
+    });
+    console.log(this.state.projectTask);
   }
 
   onChange = e => {
@@ -49,6 +83,7 @@ class UpdateProjectTask extends Component {
   render() {
     const { projectIdentifier } = this.props.match.params;
     const { errors } = this.state;
+    console.log(this.state);
 
     return (
       <div className="add-PBI">
@@ -63,7 +98,7 @@ class UpdateProjectTask extends Component {
               </Link>
               <br />
               <br />
-              <h4 className="display-4 text-center">Add Project Task</h4>
+              <h4 className="display-4 text-center">Update Project Task</h4>
               <p className="lead text-center">Project Name + Project Code</p>
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
@@ -154,4 +189,11 @@ class UpdateProjectTask extends Component {
   }
 }
 
-export default UpdateProjectTask;
+const mapStateToProps = state => ({
+  projectTask: state.backlog.projectTask,
+  errors: state.errors
+});
+
+export default connect(mapStateToProps, { getProjectTask, addProjectTask })(
+  UpdateProjectTask
+);
