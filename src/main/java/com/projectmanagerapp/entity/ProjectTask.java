@@ -25,16 +25,23 @@ public class ProjectTask {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
 	@Column(updatable = false, unique = true)
 	private String projectSequence;
+	
 	@NotBlank(message = "Project summary is required")
 	private String summary;
+	
 	@NotBlank(message = "Acceptance criteria is required")
 	private String acceptanceCriteria;
+	
 	@NotNull(message = "Priority is required")
 	private Integer priority;
+	
 	@NotNull(message = "Due date is required")
+	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date dueDate;
+	
 	private String status;
 
 	@Column(updatable = false)
