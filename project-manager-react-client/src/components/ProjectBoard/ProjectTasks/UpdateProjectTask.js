@@ -40,6 +40,7 @@ class UpdateProjectTask extends Component {
     }
 
     const {
+      id,
       projectIdentifier,
       summary,
       acceptanceCriteria,
@@ -49,6 +50,7 @@ class UpdateProjectTask extends Component {
     } = nextProps.projectTask;
 
     this.setState({
+      id,
       projectIdentifier,
       summary,
       acceptanceCriteria,
@@ -66,6 +68,7 @@ class UpdateProjectTask extends Component {
   onSubmit = e => {
     e.preventDefault();
     const updateProjectTask = {
+      id: this.state.id,
       summary: this.state.summary,
       acceptanceCriteria: this.state.acceptanceCriteria,
       dueDate: this.state.dueDate,
