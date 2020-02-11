@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,9 @@ import com.projectmanagerapp.service.ProjectTaskServiceImpl;
 @RequestMapping("/api/backlog")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class BacklogController {
-
+	
+	private static final Logger LOG = LoggerFactory.getLogger(BacklogController.class);
+	
 	@Autowired
 	ProjectTaskServiceImpl projectTaskService;
 
@@ -53,8 +57,9 @@ public class BacklogController {
 	@GetMapping("/{projectIdentifier}")
 	public ResponseEntity<?> getProjectBacklog(@PathVariable String projectIdentifier) {
 		List<ProjectTask> projectTaskList = projectTaskService.getProjectTasks(projectIdentifier);
+		LOG.info("Project Tasks ::{}",projectTaskList);
 		if(projectTaskList.isEmpty()) {
-			throw new ProjectNotFoundException("Project Not found with identifier " + projectIdentifier);
+			throw new ProjectNotFoundException("No tasks found with identifier " + projectIdentifier);
 		}
 		return new ResponseEntity<>(projectTaskList, HttpStatus.OK);
 	}
