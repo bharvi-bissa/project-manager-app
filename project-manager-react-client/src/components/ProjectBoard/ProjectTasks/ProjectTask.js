@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { deleteProjectTask } from "../../../actions/backlogActions";
 
 class ProjectTask extends Component {
+  deleteTask = (projectIdentifier, projectSequence) => {
+    this.props.deleteProjectTask(projectIdentifier, projectSequence);
+  };
+
   render() {
     const { projectTask } = this.props;
     let priority;
@@ -36,11 +42,20 @@ class ProjectTask extends Component {
             View / Update
           </Link>
 
-          <button className="btn btn-danger ml-4">Delete</button>
+          <button
+            className="btn btn-danger ml-4"
+            onClick={this.deleteTask.bind(
+              this,
+              projectTask.projectIdentifier,
+              projectTask.projectSequence
+            )}
+          >
+            Delete
+          </button>
         </div>
       </div>
     );
   }
 }
 
-export default ProjectTask;
+export default connect(null, { deleteProjectTask })(ProjectTask);

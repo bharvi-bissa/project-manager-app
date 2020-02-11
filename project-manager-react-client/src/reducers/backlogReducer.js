@@ -24,8 +24,12 @@ export default (state = initialState, action) => {
         projectTask: action.payload
       };
     case DELETE_PROJECT_TASK:
+      console.log("REDUCER DELETE_PROJECT_TASK");
       return {
-        ...state
+        ...state,
+        projectTasks: state.projectTasks.filter(
+          projectTask => projectTask.projectSequence != action.payload
+        )
       };
     default:
       return state;

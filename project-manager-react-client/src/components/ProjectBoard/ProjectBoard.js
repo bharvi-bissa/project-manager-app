@@ -30,12 +30,24 @@ class ProjectBoard extends Component {
     let notFound = false;
     const projectBoard = (projectTasks, errors) => {
       if (projectTasks.length === 0) {
-        if (errors.projectNotFound) {
+        if (
+          errors.projectNotFound &&
+          errors.projectNotFound ===
+            `No tasks found with identifier ${projectIdentifier}`
+        ) {
           notFound = true;
           console.log("NOT FOUND WITH IDT" + notFound);
           return (
-            <div className="alert alert-danger text-center" role="alert">
-              {errors.projectNotFound}
+            <div>
+              <Link
+                to={`/addProjectTask/${projectIdentifier}`}
+                className="btn btn-green mb-3"
+              >
+                <i className="fas fa-plus-circle"> Create Project Task</i>
+              </Link>
+              <div className="alert alert-danger text-center" role="alert">
+                {errors.projectNotFound}
+              </div>
             </div>
           );
         } else {
