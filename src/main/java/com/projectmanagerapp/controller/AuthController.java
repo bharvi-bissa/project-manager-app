@@ -1,6 +1,8 @@
 package com.projectmanagerapp.controller;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -13,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,7 +59,16 @@ public class AuthController {
 	@PostMapping("/signin")
 	@CrossOrigin(origins = "*")
 	@ApiOperation("Login user and if successfull return access token")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest, BindingResult bindingResult) {
+		
+		if (bindingResult.hasErrors()) {
+			Map<String, String> errorMap = new HashMap<>();
+
+			for (FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put(error.getField(), error.getDefaultMessage());
+			}
+			return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
+		}
 
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
@@ -75,13 +88,25 @@ public class AuthController {
 	@CrossOrigin(origins = "*")
 	@ApiOperation("Register user and return user object")
 	@PostMapping("/signup")
-	public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
+	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpRequest, BindingResult bindingResult) {
+		User userError = new User();
+		if (bindingResult.hasErrors()) {
+			Map<String, String> errorMap = new HashMap<>();
+
+			for (FieldError error : bindingResult.getFieldErrors()) {
+				errorMap.put(error.getField(), error.getDefaultMessage());
+			}
+			return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
+		}
+		
 		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
-			return new ResponseEntity<>("Fail -> Username is already taken!", HttpStatus.BAD_REQUEST);
+			userError.setUsername("Username is already taken!");
+			return new ResponseEntity<>(userError, HttpStatus.BAD_REQUEST);
 		}
 
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			return new ResponseEntity<>("Fail -> Email is already in use!", HttpStatus.BAD_REQUEST);
+			userError.setEmail("Email already in use");
+			return new ResponseEntity<>(userError, HttpStatus.BAD_REQUEST);
 		}
 
 		// Creating user's account

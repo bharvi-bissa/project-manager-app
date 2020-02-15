@@ -10,6 +10,9 @@ import ProjectBoard from "./components/ProjectBoard/ProjectBoard";
 
 import { Provider } from "react-redux";
 import store from "./Store";
+import { registerUser } from "./actions/authActions";
+import Register from "./components/Auth/Register";
+import Login from "./components/Auth/Login";
 
 class App extends Component {
   render() {
@@ -40,6 +43,8 @@ class App extends Component {
             path="/updateProject/:projectIdentifier"
             component={UpdateProject}
           />
+          <Route exact path="/auth/register" component={Register} />
+          <Route exact path="/auth/login" component={Login} />
         </BrowserRouter>
       </Provider>
     );

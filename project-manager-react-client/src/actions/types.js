@@ -7,3 +7,7 @@ export const DELETE_PROJECT = "DELETE_PROJECT";
 export const GET_BACKLOG = "GET_BACKLOG";
 export const DELETE_PROJECT_TASK = "DELETE_PROJECT_TASK";
 export const GET_PROJECT_TASK = "GET_PROJECT_TASK";
+
+//Types for auth actions
+export const REGISTER_USER = "REGISTER_USER";
+export const LOGIN_USER = "LOGIN_USER";
