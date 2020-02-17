@@ -41,6 +41,7 @@ class Register extends Component {
 
   render() {
     const { errors } = this.state;
+
     return (
       <div>
         <div className="project">
@@ -48,6 +49,14 @@ class Register extends Component {
             <div className="row">
               <div className="col-md-8 m-auto">
                 <h2 className=" text-center">Login</h2>
+                {errors.message ? (
+                  <div className="alert alert-danger">
+                    <div>{errors.message ? errors.message : ""}</div>
+                  </div>
+                ) : (
+                  ""
+                )}
+
                 <hr />
                 <form onSubmit={this.onSubmit}>
                   <div className="form-group">

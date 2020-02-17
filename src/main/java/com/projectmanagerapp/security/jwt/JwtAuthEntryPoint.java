@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthEntryPoint.class);
+    private static final String INVALID_USERNAME_PASSWORD = "Invalid Username/Password";
     
     @Override
     public void commence(HttpServletRequest request,
@@ -24,6 +25,6 @@ public class JwtAuthEntryPoint implements AuthenticationEntryPoint {
                         		 throws IOException, ServletException {
     	
         logger.error("Unauthorized error. Message - {}", e.getMessage());
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error -> Unauthorized");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, INVALID_USERNAME_PASSWORD);
     }
 }

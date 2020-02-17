@@ -11,3 +11,4 @@ export const GET_PROJECT_TASK = "GET_PROJECT_TASK";
 //Types for auth actions
 export const REGISTER_USER = "REGISTER_USER";
 export const LOGIN_USER = "LOGIN_USER";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
