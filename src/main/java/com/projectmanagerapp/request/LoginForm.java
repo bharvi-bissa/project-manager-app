@@ -4,11 +4,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class LoginForm {
-    @NotBlank
+    
+	@NotBlank(message="username is required")
     @Size(min=3, max = 60)
     private String username;
 
-    @NotBlank
+    @NotBlank(message="password is required")
     @Size(min = 6, max = 40)
     private String password;
 

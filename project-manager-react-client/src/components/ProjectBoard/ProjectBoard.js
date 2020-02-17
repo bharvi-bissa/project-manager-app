@@ -79,7 +79,6 @@ class ProjectBoard extends Component {
     };
     const boardContent = projectBoard(projectTasks, errors);
     const btn = renderButton();
-    console.log(btn);
     return (
       <div className="container">
         {btn}
