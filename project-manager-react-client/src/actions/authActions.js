@@ -3,23 +3,24 @@ import { REGISTER_USER, GET_ERRORS, SET_CURRENT_USER } from "./types";
 import SetAuthToken from "../Utils/SetAuthToken";
 import jwt_decode from "jwt-decode";
 
-export const registerUser = (user, history) => async dispatch => {
+export const registerUser = (user, history) => async (dispatch) => {
   try {
     const res = await axios.post("/api/auth/signup", user);
 
     dispatch({
       type: REGISTER_USER,
-      payload: res.data
+      payload: res.data,
     });
+    history.push("/auth/login");
   } catch (error) {
     dispatch({
       type: GET_ERRORS,
-      payload: error.response.data
+      payload: error.response.data,
     });
   }
 };
 
-export const loginUser = (user, history) => async dispatch => {
+export const loginUser = (user, history) => async (dispatch) => {
   try {
     const res = await axios.post("/api/auth/signin", user);
     console.log(res.data);
@@ -38,20 +39,20 @@ export const loginUser = (user, history) => async dispatch => {
   } catch (error) {
     dispatch({
       type: GET_ERRORS,
-      payload: error.response.data
+      payload: error.response.data,
     });
   }
 };
 
 // Set logged in user
-export const setCurrentUser = decoded => {
+export const setCurrentUser = (decoded) => {
   return {
     type: SET_CURRENT_USER,
-    payload: decoded
+    payload: decoded,
   };
 };
 
-export const logoutUser = () => dispatch => {
+export const logoutUser = () => (dispatch) => {
   // Remove token from localStorage
   localStorage.removeItem("accessToken");
   // Remove auth header for future requests
